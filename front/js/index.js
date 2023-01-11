@@ -2,7 +2,7 @@
 
 const addItemCanap = async () => {
 
-  const canapes = await getData("http://localhost:3000/api/products");
+  const canapes = await getData("http://localhost:3000/api/products/");
   console.log(canapes);
   let listCanapes = "";
   canapes.forEach((canape) => {
