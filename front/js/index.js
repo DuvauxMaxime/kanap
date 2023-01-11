@@ -3,6 +3,10 @@
 const addItemCanap = async () => {
 
   const canapes = await getData("http://localhost:3000/api/products/");
+  if (canapes === -1) {
+    document.location.href = "index.html";
+    alert("La page demandée n'existe pas");
+  }
   console.log(canapes);
   let listCanapes = "";
   canapes.forEach((canape) => {

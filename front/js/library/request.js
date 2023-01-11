@@ -4,10 +4,8 @@ const getData = async (url) => {
     const response = await fetch(url); // Récup. données = méthode fetch + URL API
     if (response.ok === true) {
         return await response.json();
-    } else {
-        document.location.href = "index.html";
-        alert("La page demandée n'existe pas");
     }
+    return -1;
 }
 
 // const getData = async (url) => {
