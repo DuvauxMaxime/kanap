@@ -23,7 +23,7 @@ const addCanape = (canape) => {
     const color = colorChoice();
     const quantity = quantityChoice();
     if (color != -1 && quantity != -1) {
-        const productAddToLocalStorage = { id: canape._id, colors: color, quantities: quantity, name: canape.name, altTxt: canape.altTxt, imageUrl: canape.imageUrl };
+        const productAddToLocalStorage = { id: canape._id, colors: color, quantities: Number(quantity), name: canape.name, altTxt: canape.altTxt, imageUrl: canape.imageUrl };
         return productAddToLocalStorage;
     }
 }
@@ -81,6 +81,7 @@ const addDataProduct = async () => {
     // Fonction déclenchée lors du clic sur le bouton ajouter au panier
     document.getElementById("addToCart").addEventListener("click", () => {
         const newCanape = addCanape(dataProduct);
+        addCart(newCanape);
 
     });
 };
