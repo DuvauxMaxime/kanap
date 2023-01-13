@@ -7,7 +7,6 @@ const addItemCanap = async () => {
     document.location.href = "index.html";
     alert("La page demandée n'existe pas");
   }
-  console.log(canapes);
   let listCanapes = "";
   canapes.forEach((canape) => {
     listCanapes += `<a href="./product.html?id=${canape._id}">
@@ -19,7 +18,6 @@ const addItemCanap = async () => {
       </a>`;
   });
   document.querySelector('#items').innerHTML = listCanapes;
-
 }
 
 addItemCanap();
