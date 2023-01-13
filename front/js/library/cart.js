@@ -10,38 +10,6 @@ const saveCart = (cart) => {
 }
 
 
-// // Fonction ajouter au panier 
-// const addCart = (canape) => {
-//     const cart = getCart();
-//     const foundIdCanapeInCart = cart.find(canapeCart => canapeCart.id == canape.id);
-//     if (foundIdCanapeInCart != undefined) {
-//         const foundColorCanapeInCart = cart.find(canapeCart => canapeCart.colors == canape.colors);
-//         if (foundColorCanapeInCart != undefined) {
-//             console.log(foundColorCanapeInCart.colors);
-//         }
-//         cart.push(canape);
-//     } else {
-//         cart.push(canape);
-//     }
-//     saveCart(cart);
-// }
-
-// // Fonction ajouter au panier 
-// const addCart = (canape) => {
-//     const cart = getCart();
-//     const foundIdCanapeInCart = cart.find(canapeCart => canapeCart.id == canape.id);
-//     const foundColorCanapeInCart = cart.find(canapeCart => canapeCart.colors == canape.colors);
-//     if (foundIdCanapeInCart != undefined && foundColorCanapeInCart != undefined) {
-//         quantityOfCanape = Number(canape.quantities)
-//         foundIdCanapeInCart.quantities = foundIdCanapeInCart.quantities + quantityOfCanape;
-//         console.log(typeof quantityOfCanape);
-//     }
-//     else {
-//         cart.push(canape);
-//     }
-//     saveCart(cart);
-// }
-
 // Fonction ajouter au panier 
 const addCart = (canape) => {
     const cart = getCart();

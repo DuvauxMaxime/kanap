@@ -29,32 +29,7 @@ const addCanape = (canape) => {
 }
 
 
-
-// const addCanape = (canape) => {
-//     const productQuantity = document.querySelector("#quantity").value;
-//     const productColors = document.querySelector("#colors").value;
-//     // Gestion des erreurs possibles lors du clic sur bouton ajouter au panier 
-//     if (productColors === '') { // a mettre dans une fonction réutilisable
-//         alert("Veuillez sélectionner une couleur avant d'ajouter dans le panier.");
-//     }
-//     if (productQuantity < 1 || productQuantity > 100) { // a mettre dans une fonction réutilisable
-//         alert("La quantité doit être comprise entre 1 et 100 pour être ajouter au panier.");
-//     }
-//     // Si pas d'erreur = création d'un objet
-//     const productAddToLocalStorage = { id: pageId, quantity: productQuantity, colors: productColors };
-
-//     if (localStorage.getItem(pageId) && JSON.parse(localStorage.getItem(pageId)).colors) {
-
-//     } else {
-//         // Créer une nouvelle ligne dans le local storage si l'Id n'existe pas
-//         localStorage.setItem("Item", JSON.stringify(productAddToLocalStorage));
-//     }
-
-
-// }
-
-
-// Ajout des détails d'un canapé par ID sur la page produit 
+// Ajout des données du canapé par ID sur la page produit 
 const addDataProduct = async () => {
     // Récupère l'Id contenu dans l'URL
     const pageId = await new URL(window.location.href).searchParams.get("id");
@@ -70,6 +45,7 @@ const addDataProduct = async () => {
         document.location.href = "index.html";
         alert("Le produit demandé n'existe pas");
     }
+    // Insertion des données dans le DOM
     document.title = dataProduct.name; // Modifie le titre de la page avec le nom du produit actuel
     document.querySelector('.item__img').innerHTML = `<img src="${dataProduct.imageUrl}" alt="${dataProduct.altTxt}">`;
     document.querySelector('#title').innerHTML = dataProduct.name;
@@ -82,7 +58,6 @@ const addDataProduct = async () => {
     document.getElementById("addToCart").addEventListener("click", () => {
         const newCanape = addCanape(dataProduct);
         addCart(newCanape);
-
     });
 };
 
