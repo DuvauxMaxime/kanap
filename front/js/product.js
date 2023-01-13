@@ -57,7 +57,9 @@ const addDataProduct = async () => {
     // Fonction déclenchée lors du clic sur le bouton ajouter au panier
     document.getElementById("addToCart").addEventListener("click", () => {
         const newCanape = addCanape(dataProduct);
-        addCart(newCanape);
+        if (newCanape != undefined) {
+            addCart(newCanape);
+        }
     });
 };
 
