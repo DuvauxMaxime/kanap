@@ -9,11 +9,11 @@ const colorChoice = () => {
 
 
 // Fonction validation quantité pour ajouter au panier
-const quantityChoice = () => {
-    if (document.getElementById("quantity").value > 0 && document.getElementById("quantity").value <= 100) {
-        return document.getElementById("quantity").value;
+const quantityChoice = (number) => {
+    if (number > 0 && number <= 100 && Number.isInteger(number) == true) {
+        return number;
     }
-    alert("Vous devez sélectionner une quantité comprise entre 1 et 100 pour ajouter le produit au panier");
+    alert("La quantité doit être un nombre entier compris entre 1 et 100 pour ajouter le produit au panier");
     return -1
 }
 
@@ -21,7 +21,7 @@ const quantityChoice = () => {
 // Fonction pour ajouter un canapé dans le local storage
 const addCanape = (canape) => {
     const color = colorChoice();
-    const quantity = quantityChoice();
+    const quantity = quantityChoice(Number(document.getElementById("quantity").value));
     if (color != -1 && quantity != -1) {
         const productAddToLocalStorage = { id: canape._id, colors: color, quantities: Number(quantity), name: canape.name, altTxt: canape.altTxt, imageUrl: canape.imageUrl };
         return productAddToLocalStorage;

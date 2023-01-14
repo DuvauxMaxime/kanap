@@ -1,4 +1,4 @@
-// Ajout des canapés sur la page index
+// Fonction ajout des canapés sur la page index
 
 const addItemCanap = async () => {
 
