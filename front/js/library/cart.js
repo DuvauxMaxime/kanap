@@ -33,6 +33,18 @@ const addCart = (newItem) => {
 }
 
 
+// Fonction pour supprimer un item du panier
+const deleteItem = (itemToDelete) => {
+    // Récupère le panier
+    const cart = getCart();
+    // Recherche dans le panier l'item qui présente un id et une couleur identiques 
+    const foundItemInCart = cart.find(itemCart => itemCart.id == itemToDelete.id && itemCart.colors == itemToDelete.colors);
+    if (foundItemInCart != undefined) {
+        localStorage.removeItem('foundItemInCart');
+    }
+}
+
+
 
 // Fonction validation quantité pour ajouter au panier (de 0 à 100 et nombre entier)
 const quantityChoice = (number) => {
