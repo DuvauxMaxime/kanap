@@ -8,18 +8,8 @@ const colorChoice = () => {
 }
 
 
-// Fonction validation quantité pour ajouter au panier
-const quantityChoice = (number) => {
-    if (number > 0 && number <= 100 && Number.isInteger(number) == true) {
-        return number;
-    }
-    alert("La quantité doit être un nombre entier compris entre 1 et 100 pour ajouter le produit au panier");
-    return -1
-}
-
-
-// Fonction pour ajouter un canapé dans le local storage
-const addCanape = (canape) => {
+// Fonction pour créer les données d'un canapé à ajouter dans le local storage
+const dataCanapeToLocalStorage = (canape) => {
     const color = colorChoice();
     const quantity = quantityChoice(Number(document.getElementById("quantity").value));
     if (color != -1 && quantity != -1) {
@@ -39,26 +29,25 @@ const addDataProduct = async () => {
         alert("La page demandée n'existe pas");
     }
     // Récupère les données de l'API liées à l'Id du produit visité
-    const dataProduct = await getData("http://localhost:3000/api/products/" + pageId);
+    const dataProductFromApi = await getData("http://localhost:3000/api/products/" + pageId);
     // Gestion d'erreur si l'ID est incorrect dans l'URL
-    if (dataProduct === -1) {
+    if (dataProductFromApi === -1) {
         document.location.href = "index.html";
         alert("Le produit demandé n'existe pas");
     }
     // Insertion des données dans le DOM
-    document.title = dataProduct.name; // Modifie le titre de la page avec le nom du produit actuel
-    document.querySelector('.item__img').innerHTML = `<img src="${dataProduct.imageUrl}" alt="${dataProduct.altTxt}">`;
-    document.querySelector('#title').innerHTML = dataProduct.name;
-    document.querySelector('#price').innerHTML = dataProduct.price;
-    document.querySelector('#description').innerHTML = dataProduct.description;
-    const listColors = dataProduct.colors.map(color => '<option value="' + color + '">' + color + '</option>');
+    document.title = dataProductFromApi.name; // Modifie le titre de la page avec le nom du produit actuel
+    document.querySelector('.item__img').innerHTML = `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`;
+    document.querySelector('#title').innerHTML = dataProductFromApi.name;
+    document.querySelector('#price').innerHTML = dataProductFromApi.price;
+    document.querySelector('#description').innerHTML = dataProductFromApi.description;
+    const listColors = dataProductFromApi.colors.map(color => '<option value="' + color + '">' + color + '</option>');
     document.querySelector('#colors').insertAdjacentHTML('beforeend', listColors);
 
     // Fonction déclenchée lors du clic sur le bouton ajouter au panier
     document.getElementById("addToCart").addEventListener("click", () => {
-        const newCanape = addCanape(dataProduct);
-        if (newCanape != undefined) {
-            addCart(newCanape);
+        if (dataCanapeToLocalStorage(dataProductFromApi) != undefined) {
+            addCart(dataCanapeToLocalStorage(dataProductFromApi));
         }
     });
 };
