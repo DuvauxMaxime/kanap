@@ -87,3 +87,16 @@ const deleteArticleFromCart = () => {
 }
 
 deleteArticleFromCart()
+
+
+// Fonction pour récupérer la quantité total de canapé
+const getAllQuantities = () => {
+  const cart = getCart();
+  let allQuantities = 0;
+  for (let canape of cart) {
+    allQuantities += canape.quantities
+  }
+  document.getElementById('totalQuantity').insertAdjacentHTML('afterbegin', allQuantities);
+}
+
+getAllQuantities();
