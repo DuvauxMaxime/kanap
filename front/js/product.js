@@ -1,17 +1,8 @@
-// Fonction validation couleur pour ajouter au panier
-const colorChoice = () => {
-    if (document.getElementById("colors").value != '') {
-        return document.getElementById("colors").value;
-    }
-    alert("Vous devez sélectionner une couleur pour ajouter le produit au panier");
-    return -1
-}
-
-
-// Fonction pour créer les données d'un canapé à ajouter dans le local storage
+// Créer la variable contenant les données d'un canapé à ajouter dans le local storage
 const dataCanapeToLocalStorage = (canape) => {
-    const color = colorChoice();
+    const color = colorChoice(document.getElementById("colors").value);
     const quantity = quantityChoice(Number(document.getElementById("quantity").value));
+    // Si color et quantity sont valides : création de l'objet
     if (color != -1 && quantity != -1) {
         const productAddToLocalStorage = { id: canape._id, colors: color, quantities: Number(quantity), name: canape.name, altTxt: canape.altTxt, imageUrl: canape.imageUrl };
         return productAddToLocalStorage;
@@ -44,11 +35,14 @@ const addDataProduct = async () => {
     const listColors = dataProductFromApi.colors.map(color => '<option value="' + color + '">' + color + '</option>');
     document.querySelector('#colors').insertAdjacentHTML('beforeend', listColors);
 
-    // Fonction déclenchée lors du clic sur le bouton ajouter au panier
+    // Déclenché lors du clic sur le bouton ajouter au panier
     document.getElementById("addToCart").addEventListener("click", () => {
         if (dataCanapeToLocalStorage(dataProductFromApi) != undefined) {
             addCart(dataCanapeToLocalStorage(dataProductFromApi));
+            document.location.href = "cart.html";
         }
+
+
     });
 };
 

@@ -33,16 +33,16 @@ const addCart = (newItem) => {
 }
 
 
-// Fonction pour supprimer un item du panier
-const deleteItem = (itemToDelete) => {
-    // Récupère le panier
-    const cart = getCart();
-    // Recherche dans le panier l'item qui présente un id et une couleur identiques 
-    const foundItemInCart = cart.find(itemCart => itemCart.id == itemToDelete.id && itemCart.colors == itemToDelete.colors);
-    if (foundItemInCart != undefined) {
-        localStorage.removeItem('foundItemInCart');
-    }
-}
+// // Fonction pour supprimer un item du panier
+// const deleteItem = (itemToDelete) => {
+//     // Récupère le panier
+//     const cart = getCart();
+//     // Recherche dans le panier l'item qui présente un id et une couleur identiques 
+//     const foundItemInCart = cart.find(itemCart => itemCart.id == itemToDelete.id && itemCart.colors == itemToDelete.colors);
+//     if (foundItemInCart != undefined) {
+//         localStorage.removeItem('foundItemInCart');
+//     }
+// }
 
 
 
@@ -52,5 +52,14 @@ const quantityChoice = (number) => {
         return number;
     }
     alert("La quantité doit être un nombre entier compris entre 1 et 100 pour ajouter le produit au panier");
+    return -1
+}
+
+// Fonction validation couleur pour ajouter au panier
+const colorChoice = (color) => {
+    if (color != '') {
+        return color;
+    }
+    alert("Vous devez sélectionner une couleur pour ajouter le produit au panier");
     return -1
 }
