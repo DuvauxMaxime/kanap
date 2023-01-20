@@ -41,8 +41,6 @@ const addDataProduct = async () => {
             addCart(dataCanapeToLocalStorage(dataProductFromApi));
             document.location.href = "cart.html";
         }
-
-
     });
 };
 

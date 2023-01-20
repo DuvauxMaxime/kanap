@@ -1,5 +1,3 @@
-
-
 // Récupère la commande du client depuis le localStorage sur la page panier et insère dans le DOM
 const displayCart = async () => {
   const cart = getCart();
@@ -112,34 +110,7 @@ const getTotalQuantitiesAndPrice = async () => {
   }
   document.getElementById('totalQuantity').innerText = totalQuantities;
   document.getElementById('totalPrice').innerText = totalPrice;
-
-
 }
-
-// // Récupère la quantité total d'articles
-// let getTotalQuantities = () => {
-//   // récupère le panier du localStorage
-//   const cart = getCart();
-//   let totalQuantities = 0;
-//   cart.forEach((canape) => {
-//     totalQuantities += canape.quantities;
-//   })
-//   document.getElementById('totalQuantity').innerText = totalQuantities;
-// }
-
-
-// // Récupère le prix total
-// let getTotalPrice = async () => {
-//   const cart = getCart();
-//   let totalPrice = 0;
-//   for (let canape of cart) {
-//     const dataProductFromApi = await getData("http://localhost:3000/api/products/" + canape.id);
-//     const totalPerArticle = canape.quantities * dataProductFromApi.price
-//     totalPrice += totalPerArticle;
-//     console.log(totalPrice);
-//   }
-//   document.getElementById('totalPrice').innerText = totalPrice;
-// }
 
 
 // Ajout des articles sur la page panier et les fonctions edition/suppression
@@ -148,9 +119,62 @@ const loadCart = async () => {
   editQuantityFromCart();
   deleteArticleFromCart();
   await getTotalQuantitiesAndPrice();
-
-
 }
 
 
 loadCart();
+
+
+// Vérification des données du champ prenom
+const checkFirstName = () => {
+  // Champ prenom
+  const fieldFirstName = document.getElementById('firstName')
+  // Déclenché lors du changement
+  fieldFirstName.addEventListener("input", (event) => {
+    // Cible l'affichage du msg d'erreur
+    const displayMsg = document.getElementById('firstNameErrorMsg')
+    let errorMsg = '';
+    displayMsg.innerText = errorMsg;
+    // Valeur saisie dans le champ 
+    const firstName = event.target.value
+    // Condition si la regex === true
+    if (regexTypeName(firstName) != -1) {
+      return firstName
+    }
+    // Regex === false 
+    errorMsg = `${fieldFirstName.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
+    displayMsg.innerText = errorMsg;
+  })
+}
+
+// Vérification des données du champ prenom
+const checkLastName = () => {
+  // Champ prenom
+  const fieldLastName = document.getElementById('lastName')
+  // Déclenché lors du changement
+  fieldLastName.addEventListener("input", (event) => {
+    // Cible l'affichage du msg d'erreur
+    const displayMsg = document.getElementById('lastNameErrorMsg')
+    let errorMsg = '';
+    displayMsg.innerText = errorMsg;
+    // Valeur saisie dans le champ 
+    const lastName = event.target.value
+    // Condition si la regex === true
+    if (regexTypeName(lastName) != -1) {
+      return lastName
+    }
+    // Regex === false 
+    errorMsg = `${fieldLastName.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
+    displayMsg.innerText = errorMsg;
+  })
+}
+
+
+
+// Contrôle du formulaire 
+const checkForm = () => {
+  checkFirstName();
+  checkLastName();
+}
+
+checkForm();
