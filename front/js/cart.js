@@ -125,56 +125,130 @@ const loadCart = async () => {
 loadCart();
 
 
-// Vérification des données du champ prenom
-const checkFirstName = () => {
-  // Champ prenom
-  const fieldFirstName = document.getElementById('firstName')
-  // Déclenché lors du changement
-  fieldFirstName.addEventListener("input", (event) => {
-    // Cible l'affichage du msg d'erreur
-    const displayMsg = document.getElementById('firstNameErrorMsg')
-    let errorMsg = '';
-    displayMsg.innerText = errorMsg;
-    // Valeur saisie dans le champ 
-    const firstName = event.target.value
-    // Condition si la regex === true
-    if (regexTypeName(firstName) != -1) {
-      return firstName
-    }
-    // Regex === false 
-    errorMsg = `${fieldFirstName.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-    displayMsg.innerText = errorMsg;
-  })
-}
 
-// Vérification des données du champ prenom
-const checkLastName = () => {
-  // Champ prenom
-  const fieldLastName = document.getElementById('lastName')
-  // Déclenché lors du changement
-  fieldLastName.addEventListener("input", (event) => {
-    // Cible l'affichage du msg d'erreur
-    const displayMsg = document.getElementById('lastNameErrorMsg')
-    let errorMsg = '';
-    displayMsg.innerText = errorMsg;
-    // Valeur saisie dans le champ 
-    const lastName = event.target.value
-    // Condition si la regex === true
-    if (regexTypeName(lastName) != -1) {
-      return lastName
-    }
-    // Regex === false 
-    errorMsg = `${fieldLastName.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-    displayMsg.innerText = errorMsg;
-  })
-}
+// // Vérification des données du champ prenom
+// const checkFirstName = () => {
+//   // Champ prenom
+//   const fieldFirstName = document.getElementById('firstName')
+//   // Déclenché lors du changement
+//   fieldFirstName.addEventListener("input", (event) => {
+//     // Cible l'affichage du msg d'erreur
+//     const displayMsg = document.getElementById('firstNameErrorMsg')
+//     let errorMsg = '';
+//     displayMsg.innerText = errorMsg;
+//     // Valeur saisie dans le champ 
+//     const firstName = event.target.value
+//     // Condition si la regex === true
+//     if (regexTypeName(firstName) != -1) {
+//       return firstName
+//     }
+//     // Regex === false 
+//     errorMsg = `${fieldFirstName.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
+//     displayMsg.innerText = errorMsg;
+//   })
+// }
 
+// // Vérification des données du champ nom
+// const checkLastName = () => {
+//   // Champ prenom
+//   const fieldLastName = document.getElementById('lastName')
+//   // Déclenché lors du changement
+//   fieldLastName.addEventListener("input", (event) => {
+//     // Cible l'affichage du msg d'erreur
+//     const displayMsg = document.getElementById('lastNameErrorMsg')
+//     let errorMsg = '';
+//     displayMsg.innerText = errorMsg;
+//     // Valeur saisie dans le champ 
+//     const lastName = event.target.value
+//     // Condition si la regex === true
+//     if (regexTypeName(lastName) != -1) {
+//       return lastName
+//     }
+//     // Regex === false 
+//     errorMsg = `${fieldLastName.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
+//     displayMsg.innerText = errorMsg;
+//   })
+// }
 
+// // Vérification des données du champ adresse
+// const checkAddress = () => {
+//   // Champ prenom
+//   const fieldAdress = document.getElementById('address')
+//   // Déclenché lors du changement
+//   fieldAdress.addEventListener("change", (event) => {
+//     // Cible l'affichage du msg d'erreur
+//     const displayMsg = document.getElementById('addressErrorMsg')
+//     let errorMsg = '';
+//     displayMsg.innerText = errorMsg;
+//     // Valeur saisie dans le champ 
+//     const address = event.target.value
+//     // Condition si la regex === true
+//     if (regexTypeAddress(address) != -1) {
+//       return address
+//     }
+//     // Regex === false 
+//     errorMsg = `${fieldAdress.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
+//     displayMsg.innerText = errorMsg;
+//   })
+// }
+
+// // Vérification des données du champ ville
+// const checkCity = () => {
+//   // Champ prenom
+//   const fieldCity = document.getElementById('city')
+//   // Déclenché lors du changement
+//   fieldCity.addEventListener("change", (event) => {
+//     // Cible l'affichage du msg d'erreur
+//     const displayMsg = document.getElementById('cityErrorMsg')
+//     let errorMsg = '';
+//     displayMsg.innerText = errorMsg;
+//     // Valeur saisie dans le champ 
+//     const city = event.target.value
+//     // Condition si la regex === true
+//     if (regexTypeCity(city) != -1) {
+//       return city
+//     }
+//     // Regex === false 
+//     errorMsg = `${fieldCity.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
+//     displayMsg.innerText = errorMsg;
+//   })
+// }
+
+// // Vérification des données du champ mail
+// const checkMail = () => {
+//   // Champ prenom
+//   const fieldMail = document.getElementById('email')
+//   // Déclenché lors du changement
+//   fieldMail.addEventListener("change", (event) => {
+//     // Cible l'affichage du msg d'erreur
+//     const displayMsg = document.getElementById('emailErrorMsg')
+//     let errorMsg = '';
+//     displayMsg.innerText = errorMsg;
+//     // Valeur saisie dans le champ 
+//     const mail = event.target.value
+//     // Condition si la regex === true
+//     if (regexTypeMail(mail) != -1) {
+//       return mail
+//     }
+//     // Regex === false 
+//     errorMsg = `${fieldMail.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
+//     displayMsg.innerText = errorMsg;
+//   })
+// }
 
 // Contrôle du formulaire 
 const checkForm = () => {
-  checkFirstName();
-  checkLastName();
+  // Vérification des données du champ prenom
+  checkField(document.getElementById('firstName'), document.getElementById('firstNameErrorMsg'), regexTypeName);
+  // Vérification des données du champ nom
+  checkField(document.getElementById('lastName'), document.getElementById('lastNameErrorMsg'), regexTypeName);
+  // Vérification des données du champ adresse
+  checkField(document.getElementById('address'), document.getElementById('addressErrorMsg'), regexTypeAddress);
+  // Vérification des données du champ ville
+  checkField(document.getElementById('city'), document.getElementById('cityErrorMsg'), regexTypeCity);
+  // Vérification des données du champ email
+  checkField(document.getElementById('email'), document.getElementById('emailErrorMsg'), regexTypeMail)
 }
 
 checkForm();
+
