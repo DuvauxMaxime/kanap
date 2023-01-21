@@ -96,21 +96,34 @@ const deleteArticleFromCart = () => {
 
 
 // Récupère la quantité total des articles et le prix total
-
 const getTotalQuantitiesAndPrice = async () => {
   let totalPrice = 0;
   let totalQuantities = 0;
   const cart = getCart();
-  for (let canape of cart) {
+  await cart.forEach(async (canape) => {
     const dataProductFromApi = await getData("http://localhost:3000/api/products/" + canape.id);
     const totalPerArticle = canape.quantities * dataProductFromApi.price
     totalPrice += totalPerArticle;
+    console.log(totalPrice);
     totalQuantities += canape.quantities;
-
-  }
-  document.getElementById('totalQuantity').innerText = totalQuantities;
-  document.getElementById('totalPrice').innerText = totalPrice;
+    document.getElementById('totalQuantity').innerText = totalQuantities;
+    document.getElementById('totalPrice').innerText = totalPrice;
+  })
 }
+// const getTotalQuantitiesAndPrice = async () => {
+//   let totalPrice = 0;
+//   let totalQuantities = 0;
+//   const cart = getCart();
+//   for (let canape of cart) {
+//     const dataProductFromApi = await getData("http://localhost:3000/api/products/" + canape.id);
+//     const totalPerArticle = canape.quantities * dataProductFromApi.price
+//     totalPrice += totalPerArticle;
+//     totalQuantities += canape.quantities;
+
+//   }
+//   document.getElementById('totalQuantity').innerText = totalQuantities;
+//   document.getElementById('totalPrice').innerText = totalPrice;
+// }
 
 
 // Ajout des articles sur la page panier et les fonctions edition/suppression

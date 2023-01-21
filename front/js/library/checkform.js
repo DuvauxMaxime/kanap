@@ -40,7 +40,7 @@ const regexTypeMail = (champ) => {
 // Vérification des données du champ prenom
 const checkField = (targetfield, targetErrorMessage, nameRegex) => {
     // Déclenché lors du changement
-    targetfield.addEventListener("input", (event) => {
+    targetfield.addEventListener("change", (event) => {
         // Cible l'affichage du msg d'erreur
         const displayMsg = targetErrorMessage;
         let errorMsg = '';
