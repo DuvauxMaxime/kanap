@@ -31,7 +31,6 @@ const displayCart = async () => {
   </article > `
   };
   document.getElementById('cart__items').insertAdjacentHTML('afterbegin', userOrder);
-
 }
 
 
@@ -145,11 +144,13 @@ const checkFormBlur = () => {
   const fieldsForm = document.querySelectorAll('.cart__order__form__question');
   // Contrôle les informations contenues dans les champs du formulaire
   fieldsForm.forEach((input) => {
+    console.log(input);
     let field = input.querySelector('input')
     const displayMsg = document.getElementById(field.id + 'ErrorMsg')
     document.querySelector('#' + field.id).addEventListener("blur", (event) => {
       if (field.id === 'firstName' || field.id === 'lastName') {
-        regexTypeName(event.target.value)
+        errorMsg = ``;
+        displayMsg.innerText = errorMsg;
         if (regexTypeName(event.target.value) === -1) {
           errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
           displayMsg.innerText = errorMsg;
@@ -159,7 +160,8 @@ const checkFormBlur = () => {
         }
       }
       if (field.id === 'address') {
-        regexTypeAddress(event.target.value)
+        errorMsg = ``;
+        displayMsg.innerText = errorMsg;
         if (regexTypeAddress(event.target.value) === -1) {
           errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
           displayMsg.innerText = errorMsg;
@@ -169,7 +171,8 @@ const checkFormBlur = () => {
         }
       }
       if (field.id === 'city') {
-        regexTypeCity(event.target.value)
+        errorMsg = ``;
+        displayMsg.innerText = errorMsg;
         if (regexTypeCity(event.target.value) === -1) {
           errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
           displayMsg.innerText = errorMsg;
@@ -179,6 +182,8 @@ const checkFormBlur = () => {
         }
       }
       if (field.id === 'email') {
+        errorMsg = ``;
+        displayMsg.innerText = errorMsg;
         if (regexTypeMail(event.target.value) === -1) {
           errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
           displayMsg.innerText = errorMsg;
@@ -191,15 +196,18 @@ const checkFormBlur = () => {
   })
 }
 
+
 // Vérification des champs du formulaire
 const checkFormSubmit = () => {
   const fieldsForm = document.querySelectorAll('.cart__order__form__question');
   // Récupère les informations contenues dans les champs du formulaire
   fieldsForm.forEach((input) => {
-    let field = input.querySelector('input')
+    let field = input.querySelector('input');
+    // Cible l'affichage du msg d'erreur
+    const displayMsg = document.getElementById(field.id + 'ErrorMsg');
     if (field.id === 'firstName' || field.id === 'lastName') {
-      // Cible l'affichage du msg d'erreur
-      const displayMsg = document.getElementById(field.id + 'ErrorMsg')
+      errorMsg = ``;
+      displayMsg.innerText = errorMsg;
       if (regexTypeName(field.value) === -1) {
         errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
         displayMsg.innerText = errorMsg;
@@ -211,9 +219,8 @@ const checkFormSubmit = () => {
       }
     }
     if (field.id === 'address') {
-      // Cible l'affichage du msg d'erreur
-      const displayMsg = document.getElementById(field.id + 'ErrorMsg')
-      regexTypeAddress(field.value)
+      errorMsg = ``;
+      displayMsg.innerText = errorMsg;
       if (regexTypeAddress(field.value) === -1) {
         errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
         displayMsg.innerText = errorMsg;
@@ -225,9 +232,8 @@ const checkFormSubmit = () => {
       }
     }
     if (field.id === 'city') {
-      // Cible l'affichage du msg d'erreur
-      const displayMsg = document.getElementById(field.id + 'ErrorMsg')
-      regexTypeCity(field.value)
+      errorMsg = ``;
+      displayMsg.innerText = errorMsg;
       if (regexTypeCity(field.value) === -1) {
         errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
         displayMsg.innerText = errorMsg;
@@ -239,8 +245,8 @@ const checkFormSubmit = () => {
       }
     }
     if (field.id === 'email') {
-      // Cible l'affichage du msg d'erreur
-      const displayMsg = document.getElementById(field.id + 'ErrorMsg')
+      errorMsg = ``;
+      displayMsg.innerText = errorMsg;
       if (regexTypeMail(field.value) === -1) {
         errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
         displayMsg.innerText = errorMsg;
@@ -255,28 +261,46 @@ const checkFormSubmit = () => {
 }
 
 
-// Formulaire valide 
-const validForm = () => {
+// Récupère les informations du formulaire si valide et créer un objet contact et un tableau de la commande
+const getFieldsForm = () => {
+
   // Check du formulaire Blur 
   checkFormBlur();
   const form = document.querySelector('.cart__order__form');
   // Check du formulaire Submit
   form.addEventListener('submit', (event) => {
     checkFormSubmit();
+    //Récupère les informations saisies pour créer un objet contact
+    const fieldFirstName = document.querySelector('#firstName');
+    const fieldLastName = document.querySelector('#lastName');
+    const fieldAddress = document.querySelector('#address');
+    const fieldCity = document.querySelector('#city');
+    const fieldEmail = document.querySelector('#email');
+    const contact = {
+      firstname: fieldFirstName.value,
+      lastname: fieldLastName.value,
+      address: fieldAddress.value,
+      city: fieldCity.value,
+      email: fieldEmail.value
+    }
+    console.log(contact);
   })
+
 
 
 
 }
 
-validForm()
+getFieldsForm()
+
+
+
 
 
 
 
 // // Contrôle du formulaire
 // let checkForm = () => {
-//   let checkValid = 0;
 //   // Vérification des données du champ prenom
 //   document.querySelector('#firstName').addEventListener("change", () => {
 //     checkField(document.getElementById('firstName'), document.getElementById('firstNameErrorMsg'), regexTypeName);
