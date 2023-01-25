@@ -8,3 +8,19 @@ const getData = async (url) => {
     return -1;
 }
 
+
+const postForm = async (url, body) => {
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    })
+    if (response === true) {
+        return await response.json();
+    }
+    return -1
+}

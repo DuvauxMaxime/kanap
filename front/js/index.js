@@ -17,7 +17,8 @@ const addItemCanap = async () => {
         </article>
       </a>`;
   });
-  document.querySelector('#items').innerHTML = listCanapes;
+  // document.querySelector('#items').innerHTML = listCanapes;
+  document.querySelector('#items').insertAdjacentHTML('afterbegin', listCanapes)
 }
 
 addItemCanap();
