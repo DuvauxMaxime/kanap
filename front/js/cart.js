@@ -20,7 +20,7 @@ const displayCart = async () => {
       </div >
     <div class="cart__item__content__settings">
         <div class="cart__item__content__settings__quantity">
-            <p>Qté : ${canape.quantities}</p>
+            <p>Qté : </p>
             <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${canape.quantities}">
         </div>
         <div class="cart__item__content__settings__delete">
@@ -52,7 +52,6 @@ const editQuantityFromCart = () => {
       // Valide la condition quantité = nombre entier entre 1 et 100
       if (foundItemInCart != undefined && quantityChoice(articleNewQuantity) != -1) {
         const item = event.target.closest(`.cart__item__content__settings__quantity`).querySelector('p')
-        item.innerText = `Qté : ${articleNewQuantity}`
         foundItemInCart.quantities = Number(productEditOnCart.quantities);
       }
       event.target.value = foundItemInCart.quantities
@@ -110,22 +109,6 @@ const getTotalQuantitiesAndPrice = async () => {
 }
 
 
-// const getTotalQuantitiesAndPrice = async () => {
-//   let totalPrice = 0;
-//   let totalQuantities = 0;
-//   const cart = getCart();
-//   for (let canape of cart) {
-//     const dataProductFromApi = await getData("http://localhost:3000/api/products/" + canape.id);
-//     const totalPerArticle = canape.quantities * dataProductFromApi.price
-//     totalPrice += totalPerArticle;
-//     totalQuantities += canape.quantities;
-
-//   }
-//   document.getElementById('totalQuantity').innerText = totalQuantities;
-//   document.getElementById('totalPrice').innerText = totalPrice;
-// }
-
-
 // Ajout des articles sur la page panier et les fonctions edition/suppression
 const loadCart = async () => {
   await displayCart();
@@ -138,138 +121,62 @@ const loadCart = async () => {
 loadCart();
 
 
-
 // Vérification des champs du formulaire lors la perte du focus
 const checkFormBlur = () => {
   const fieldsForm = document.querySelectorAll('.cart__order__form__question');
   // Contrôle les informations contenues dans les champs du formulaire
   fieldsForm.forEach((input) => {
-    console.log(input);
-    let field = input.querySelector('input')
-    const displayMsg = document.getElementById(field.id + 'ErrorMsg')
+    const field = input.querySelector('input');
+    // Cible l'affichage du msg d'erreur
+    const displayMsg = document.getElementById(field.id + 'ErrorMsg');
     document.querySelector('#' + field.id).addEventListener("blur", (event) => {
-      if (field.id === 'firstName' || field.id === 'lastName') {
-        errorMsg = ``;
-        displayMsg.innerText = errorMsg;
-        if (regexTypeName(event.target.value) === -1) {
-          errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-          displayMsg.innerText = errorMsg;
-        } else if (regexTypeName(event.target.value) === -2) {
-          errorMsg = `Le champ ne peut être vide`;
-          displayMsg.innerText = errorMsg;
-        }
+      if (field.id === 'firstName' || field.id === 'lastName' || field.id === 'city') {
+        checkField(event.target.value, displayMsg, regexTypeName);
       }
       if (field.id === 'address') {
-        errorMsg = ``;
-        displayMsg.innerText = errorMsg;
-        if (regexTypeAddress(event.target.value) === -1) {
-          errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-          displayMsg.innerText = errorMsg;
-        } else if (regexTypeName(event.target.value) === -2) {
-          errorMsg = `Le champ ne peut être vide`;
-          displayMsg.innerText = errorMsg;
-        }
-      }
-      if (field.id === 'city') {
-        errorMsg = ``;
-        displayMsg.innerText = errorMsg;
-        if (regexTypeCity(event.target.value) === -1) {
-          errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-          displayMsg.innerText = errorMsg;
-        } else if (regexTypeName(event.target.value) === -2) {
-          errorMsg = `Le champ ne peut être vide`;
-          displayMsg.innerText = errorMsg;
-        }
+        checkField(event.target.value, displayMsg, regexTypeAddress);
       }
       if (field.id === 'email') {
-        errorMsg = ``;
-        displayMsg.innerText = errorMsg;
-        if (regexTypeMail(event.target.value) === -1) {
-          errorMsg = `${event.target.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-          displayMsg.innerText = errorMsg;
-        } else if (regexTypeName(event.target.value) === -2) {
-          errorMsg = `Le champ ne peut être vide`;
-          displayMsg.innerText = errorMsg;
-        }
+        checkField(event.target.value, displayMsg, regexTypeMail);
       }
     })
   })
 }
 
 
-// Vérification des champs du formulaire
-const checkFormSubmit = () => {
+// Vérification des champs du formulaire 
+const checkForm = () => {
   const fieldsForm = document.querySelectorAll('.cart__order__form__question');
   // Récupère les informations contenues dans les champs du formulaire
   fieldsForm.forEach((input) => {
     let field = input.querySelector('input');
     // Cible l'affichage du msg d'erreur
     const displayMsg = document.getElementById(field.id + 'ErrorMsg');
-    if (field.id === 'firstName' || field.id === 'lastName') {
-      errorMsg = ``;
-      displayMsg.innerText = errorMsg;
-      if (regexTypeName(field.value) === -1) {
-        errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      } else if (regexTypeName(field.value) === -2) {
-        errorMsg = `Le champ ne peut être vide`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      }
+    if (field.id === 'firstName' || field.id === 'lastName' || field.id === 'city') {
+      checkField(field.value, displayMsg, regexTypeName);
     }
     if (field.id === 'address') {
-      errorMsg = ``;
-      displayMsg.innerText = errorMsg;
-      if (regexTypeAddress(field.value) === -1) {
-        errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      } else if (regexTypeAddress(field.value) === -2) {
-        errorMsg = `Le champ ne peut être vide`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      }
-    }
-    if (field.id === 'city') {
-      errorMsg = ``;
-      displayMsg.innerText = errorMsg;
-      if (regexTypeCity(field.value) === -1) {
-        errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      } else if (regexTypeCity(field.value) === -2) {
-        errorMsg = `Le champ ne peut être vide`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      }
+      checkField(field.value, displayMsg, regexTypeAddress);
+
     }
     if (field.id === 'email') {
-      errorMsg = ``;
-      displayMsg.innerText = errorMsg;
-      if (regexTypeMail(field.value) === -1) {
-        errorMsg = `${field.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      } else if (regexTypeMail(field.value) === -2) {
-        errorMsg = `Le champ ne peut être vide`;
-        displayMsg.innerText = errorMsg;
-        event.preventDefault();
-      }
+      checkField(field.value, displayMsg, regexTypeMail);
     }
   })
 }
 
 
-// Récupère les informations du formulaire si valide et créer un objet contact et un tableau de la commande
+// Récupère les informations du formulaire, vérifie la conformitié  et créer un objet contact et un tableau de la commande
 const getFieldsForm = () => {
 
-  // Check du formulaire Blur 
+  // Check du formulaire lors de la saisie "blur"
   checkFormBlur();
   const form = document.querySelector('.cart__order__form');
-  // Check du formulaire Submit
+  // Check du formulaire lors du submit
   form.addEventListener('submit', (event) => {
-    checkFormSubmit();
+    event.preventDefault();
+    checkForm();
+    console.log(checkForm());
     //Récupère les informations saisies pour créer un objet contact
     const fieldFirstName = document.querySelector('#firstName');
     const fieldLastName = document.querySelector('#lastName');
@@ -277,26 +184,25 @@ const getFieldsForm = () => {
     const fieldCity = document.querySelector('#city');
     const fieldEmail = document.querySelector('#email');
     const contact = {
-      firstname: fieldFirstName.value,
-      lastname: fieldLastName.value,
+      firstName: fieldFirstName.value,
+      lastName: fieldLastName.value,
       address: fieldAddress.value,
       city: fieldCity.value,
       email: fieldEmail.value
-    }
-    console.log(contact);
+    };
+    // Récupère les ID de la commande pour créer un array d'ID 
+    const cart = getCart();
+    const products = cart.map(canape => canape.id
+    );
+    // Objet à transmettre dans la requête
+    const order = { contact, products };
+    console.log(order);
+
   })
-
-
-
 
 }
 
-getFieldsForm()
-
-
-
-
-
+getFieldsForm();
 
 
 // // Contrôle du formulaire

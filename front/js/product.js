@@ -28,10 +28,14 @@ const addDataProduct = async () => {
     }
     // Insertion des données dans le DOM
     document.title = dataProductFromApi.name; // Modifie le titre de la page avec le nom du produit actuel
-    document.querySelector('.item__img').innerHTML = `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`;
-    document.querySelector('#title').innerHTML = dataProductFromApi.name;
-    document.querySelector('#price').innerHTML = dataProductFromApi.price;
-    document.querySelector('#description').innerHTML = dataProductFromApi.description;
+    // document.querySelector('.item__img').innerHTML = `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`;
+    // document.querySelector('#title').innerHTML = dataProductFromApi.name;
+    // document.querySelector('#price').innerHTML = dataProductFromApi.price;
+    // document.querySelector('#description').innerHTML = dataProductFromApi.description;
+    document.querySelector('.item__img').insertAdjacentHTML('beforeend', `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`)
+    document.querySelector('#title').insertAdjacentHTML('beforeend', dataProductFromApi.name);
+    document.querySelector('#price').insertAdjacentHTML('beforeend', dataProductFromApi.price);
+    document.querySelector('#description').insertAdjacentHTML('beforeend', dataProductFromApi.description);
     const listColors = dataProductFromApi.colors.map(color => '<option value="' + color + '">' + color + '</option>');
     document.querySelector('#colors').insertAdjacentHTML('beforeend', listColors);
 
