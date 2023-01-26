@@ -179,7 +179,6 @@ const getFieldsForm = async () => {
     checkForm();
     // Si formulaire invalide (aucune action)
     if (checkForm() === -1) {
-      console.log('Erreur dans le formulaire');
       return -1
     }
     //Récupère les informations saisies pour créer un objet contact
@@ -203,10 +202,15 @@ const getFieldsForm = async () => {
     const order = { contact, products };
     // Requête API 
     const data = await postForm("http://localhost:3000/api/products/order", order)
+    if (data === -1) {
+
+      alert("Une erreur est survenue lors de la validation du panier. Veuillez vérifier les informations saisies et valider à nouveau votre commande.");
+      return document.location.href = "cart.html";
+    }
     // Supprime le localStorage
-    // localStorage.clear();
+    localStorage.clear();
     // Redirection sur la page confirmation avec orderId 
-    document.location.href = `confirmation.html?=orderId=${data.orderId}`
+    document.location.href = `confirmation.html?orderId=${data.orderId}`
   })
 }
 
