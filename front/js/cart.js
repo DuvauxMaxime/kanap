@@ -168,12 +168,13 @@ const checkForm = () => {
 
 
 // Récupère les informations du formulaire, vérifie la conformitié, créer un objet contact et un tableau de la commande et envoi la requête
-const getFieldsForm = () => {
+const getFieldsForm = async () => {
+
   // Check du formulaire lors de la saisie "blur"
   checkFormBlur();
   const form = document.querySelector('.cart__order__form');
   // Check du formulaire lors du submit
-  form.addEventListener('submit', (event) => {
+  await form.addEventListener('submit', async (event) => {
     event.preventDefault();
     checkForm();
     // Si formulaire invalide (aucune action)
@@ -200,9 +201,13 @@ const getFieldsForm = () => {
     );
     // Objet à transmettre dans la requête
     const order = { contact, products };
-    console.log(order);
+    // Requête API 
+    const data = await postForm("http://localhost:3000/api/products/order", order)
+    // Supprime le localStorage
+    // localStorage.clear();
+    // Redirection sur la page confirmation avec orderId 
+    document.location.href = `confirmation.html?=orderId=${data.orderId}`
   })
-
 }
 
 getFieldsForm();
