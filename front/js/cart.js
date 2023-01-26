@@ -204,7 +204,7 @@ const getFieldsForm = async () => {
     const data = await postForm("http://localhost:3000/api/products/order", order)
     if (data === -1) {
 
-      alert("Une erreur est survenue lors de la validation du panier. Veuillez vérifier les informations saisies et valider à nouveau votre commande.");
+      alert("Une erreur est survenue, la page demandée n'existe pas.");
       return document.location.href = "cart.html";
     }
     // Supprime le localStorage
