@@ -1,5 +1,4 @@
 // Fonction pour récupérer les données de l'API en .json
-
 const getData = async (url) => {
     const response = await fetch(url); // Récup. données = méthode fetch + URL API
     if (response.ok === true) {
@@ -8,7 +7,7 @@ const getData = async (url) => {
     return -1;
 }
 
-
+// Fonction pour requêter l'API 
 const postForm = async (url, body) => {
 
     const response = await fetch(url, {
@@ -19,7 +18,7 @@ const postForm = async (url, body) => {
         },
         body: JSON.stringify(body)
     })
-    if (response === true) {
+    if (response.ok === true) {
         return await response.json();
     }
     return -1

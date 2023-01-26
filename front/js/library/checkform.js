@@ -22,18 +22,6 @@ const regexTypeAddress = (champ) => {
 }
 
 
-// // Regex pour vérifier des champs de type ville (caractères alphabétiques, tiret, espace et virgule)
-// const regexTypeCity = (champ) => {
-//     const reg = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\-\,]{0,}[\s]{0,}[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\-\,]{0,}[\s]{0,}[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\-\,]{0,}[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\s.\-\,]{0,}$/;
-//     if (reg.test(champ) === true) {
-//         return champ
-//     } else if (champ.trim() == '') {
-//         return -2;
-//     }
-//     return -1
-// }
-
-
 // Regex pour vérifier des champs de type mail (caractères alphanumériques, tirets, points, underscore et @)
 const regexTypeMail = (champ) => {
     const reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/;
@@ -45,6 +33,7 @@ const regexTypeMail = (champ) => {
     return -1
 }
 
+// Adapte le message en fonction du test du champ ciblé
 const checkField = (targetInput, targetMsg, regexType) => {
     let errorMsg = ``;
     targetMsg.innerText = errorMsg;
@@ -57,9 +46,7 @@ const checkField = (targetInput, targetMsg, regexType) => {
         errorMsg = `Le champ ne peut être vide`;
         targetMsg.innerText = errorMsg;
         return -1
-
     }
-
 }
 // // Vérification des données d'un champ
 // const checkField = (targetfield, targetErrorMessage, nameRegex) => {
