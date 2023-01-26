@@ -147,28 +147,28 @@ const checkFormBlur = () => {
 // Vérification des champs du formulaire 
 const checkForm = () => {
   const fieldsForm = document.querySelectorAll('.cart__order__form__question');
+  let testReg
   // Récupère les informations contenues dans les champs du formulaire
   fieldsForm.forEach((input) => {
     let field = input.querySelector('input');
     // Cible l'affichage du msg d'erreur
     const displayMsg = document.getElementById(field.id + 'ErrorMsg');
     if (field.id === 'firstName' || field.id === 'lastName' || field.id === 'city') {
-      checkField(field.value, displayMsg, regexTypeName);
+      testReg = checkField(field.value, displayMsg, regexTypeName);
     }
     if (field.id === 'address') {
-      checkField(field.value, displayMsg, regexTypeAddress);
-
+      testReg = checkField(field.value, displayMsg, regexTypeAddress);
     }
     if (field.id === 'email') {
-      checkField(field.value, displayMsg, regexTypeMail);
+      testReg = checkField(field.value, displayMsg, regexTypeMail);
     }
   })
+  return testReg
 }
 
 
-// Récupère les informations du formulaire, vérifie la conformitié  et créer un objet contact et un tableau de la commande
+// Récupère les informations du formulaire, vérifie la conformitié, créer un objet contact et un tableau de la commande et envoi la requête
 const getFieldsForm = () => {
-
   // Check du formulaire lors de la saisie "blur"
   checkFormBlur();
   const form = document.querySelector('.cart__order__form');
@@ -176,7 +176,11 @@ const getFieldsForm = () => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     checkForm();
-    console.log(checkForm());
+    // Si formulaire invalide (aucune action)
+    if (checkForm() === -1) {
+      console.log('Erreur dans le formulaire');
+      return -1
+    }
     //Récupère les informations saisies pour créer un objet contact
     const fieldFirstName = document.querySelector('#firstName');
     const fieldLastName = document.querySelector('#lastName');
@@ -197,7 +201,6 @@ const getFieldsForm = () => {
     // Objet à transmettre dans la requête
     const order = { contact, products };
     console.log(order);
-
   })
 
 }
@@ -205,30 +208,5 @@ const getFieldsForm = () => {
 getFieldsForm();
 
 
-// // Contrôle du formulaire
-// let checkForm = () => {
-//   // Vérification des données du champ prenom
-//   document.querySelector('#firstName').addEventListener("change", () => {
-//     checkField(document.getElementById('firstName'), document.getElementById('firstNameErrorMsg'), regexTypeName);
-//   })
-//   // Vérification des données du champ nom
-//   document.querySelector('#lastName').addEventListener("change", () => {
-//     checkField(document.getElementById('lastName'), document.getElementById('lastNameErrorMsg'), regexTypeName);
-//   })
-//   // Vérification des données du champ adresse
-//   document.querySelector('#address').addEventListener("change", () => {
-//     checkField(document.getElementById('address'), document.getElementById('addressErrorMsg'), regexTypeAddress);
-//   })
-//   // Vérification des données du champ ville
-//   document.querySelector('#city').addEventListener("change", () => {
-//     checkField(document.getElementById('city'), document.getElementById('cityErrorMsg'), regexTypeCity);
-//   })
-//   // Vérification des données du champ email
-//   document.querySelector('#email').addEventListener("change", () => {
-//     checkField(document.getElementById('email'), document.getElementById('emailErrorMsg'), regexTypeMail);
-//   })
-// }
-
-// checkForm();
 
 
