@@ -200,17 +200,19 @@ const getFieldsForm = async () => {
     );
     // Objet à transmettre dans la requête
     const order = { contact, products };
-    // Requête API 
-    const data = await postForm("http://localhost:3000/api/products/order", order)
-    if (data === -1) {
-
-      alert("Une erreur est survenue, la page demandée n'existe pas.");
-      return document.location.href = "cart.html";
+    // Conditions à respecter pour exécuter la requête 
+    if (contact.firstName.length > 0 && contact.lastName.length > 0 && contact.address.length > 0 && contact.city.length > 0 && contact.email.length > 0 && products.length > 0) {
+      // Requête API 
+      const data = await postForm("http://localhost:3000/api/products/order", order)
+      if (data === -1) {
+        alert("Une erreur est survenue lors de la validation de la commande, veuillez nous excuser pour ce désagrément.");
+        return
+      }
+      // Supprime le localStorage
+      localStorage.clear();
+      // Redirection sur la page confirmation avec orderId 
+      document.location.href = `confirmation.html?orderId=${data.orderId}`
     }
-    // Supprime le localStorage
-    localStorage.clear();
-    // Redirection sur la page confirmation avec orderId 
-    document.location.href = `confirmation.html?orderId=${data.orderId}`
   })
 }
 
