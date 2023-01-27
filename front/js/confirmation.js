@@ -8,7 +8,7 @@ const getOrderId = async () => {
     // Gestion d'erreur si l'Id  est absent dans l'URL 
     if (orderId === null) {
         document.location.href = "index.html";
-        alert("Une erreur est survenue lors de la validation de la commande. Veuillez nous excuser pour ce désagrément.");
+        alert("La page demandée n'existe pas.");
     }
     return orderId
 }
