@@ -48,35 +48,3 @@ const checkField = (targetInput, targetMsg, regexType) => {
         return -1
     }
 }
-// // Vérification des données d'un champ
-// const checkField = (targetfield, targetErrorMessage, nameRegex) => {
-//     // Cible l'affichage du msg d'erreur
-//     const displayMsg = targetErrorMessage;
-//     let errorMsg = '';
-//     displayMsg.innerText = errorMsg;
-//     // Valeur saisie dans le champ
-//     const inputUser = targetfield.value;
-//     // Condition si la regex === true
-//     if (nameRegex(inputUser) === true && inputUser.length > 0) {
-//         return inputUser;
-//     }
-//     // Condition si la regex === false && si le champ est vide
-//     if (nameRegex(inputUser) === false && inputUser.length === 0) {
-//         errorMsg = `Le champ ne peut être vide`;
-//         displayMsg.innerText = errorMsg;
-//         // désactive le button order
-//         document.getElementById('order').setAttribute("disabled", "");
-//         return -1;
-//     }
-//     // Regex === false
-//     errorMsg = `${targetfield.value} : le format ne respecte pas la saisie attendue dans ce champ.`;
-//     displayMsg.innerText = errorMsg;
-//     // désactive le button order
-//     document.getElementById('order').setAttribute("disabled", "");
-//     return -1;
-// }
-
-
-
-
-
