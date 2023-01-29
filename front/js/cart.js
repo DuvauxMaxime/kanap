@@ -166,10 +166,36 @@ const checkForm = () => {
   return testReg
 }
 
+// Créer le contact nécessaire à la requête
+const createContact = () => {
+  //Récupère les informations saisies pour créer un objet contact
+  const fieldFirstName = document.querySelector('#firstName');
+  const fieldLastName = document.querySelector('#lastName');
+  const fieldAddress = document.querySelector('#address');
+  const fieldCity = document.querySelector('#city');
+  const fieldEmail = document.querySelector('#email');
+  const contact = {
+    firstName: fieldFirstName.value,
+    lastName: fieldLastName.value,
+    address: fieldAddress.value,
+    city: fieldCity.value,
+    email: fieldEmail.value
+  };
+  return contact
+};
+
+// Créer le contact nécessaire à la requête
+const createProducts = async () => {
+  // Récupère les ID de la commande pour créer un array d'ID 
+  const cart = await getCart();
+  const products = cart.map(canape => canape.id
+  );
+  return await products
+};
+
 
 // Récupère les informations du formulaire, vérifie la conformitié, créer un objet contact et un tableau de la commande et envoi la requête
 const getFieldsForm = async () => {
-
   // Check du formulaire lors de la saisie "blur"
   checkFormBlur();
   const form = document.querySelector('.cart__order__form');
@@ -181,24 +207,8 @@ const getFieldsForm = async () => {
     if (checkForm() === -1) {
       return -1
     }
-    //Récupère les informations saisies pour créer un objet contact
-    const fieldFirstName = document.querySelector('#firstName');
-    const fieldLastName = document.querySelector('#lastName');
-    const fieldAddress = document.querySelector('#address');
-    const fieldCity = document.querySelector('#city');
-    const fieldEmail = document.querySelector('#email');
-    const contact = {
-      firstName: fieldFirstName.value,
-      lastName: fieldLastName.value,
-      address: fieldAddress.value,
-      city: fieldCity.value,
-      email: fieldEmail.value
-    };
-    // Récupère les ID de la commande pour créer un array d'ID 
-    const cart = getCart();
-    const products = cart.map(canape => canape.id
-    );
-    // Objet à transmettre dans la requête
+    const contact = createContact();
+    const products = await createProducts();
     const order = { contact, products };
     // Conditions à respecter pour exécuter la requête 
     if (contact.firstName.length > 0 && contact.lastName.length > 0 && contact.address.length > 0 && contact.city.length > 0 && contact.email.length > 0 && products.length > 0) {

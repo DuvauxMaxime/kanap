@@ -1,4 +1,4 @@
-// Créer la variable contenant les données d'un canapé à ajouter dans le local storage
+// Créer l'objet contenant les détails d'un canapé à ajouter dans le local storage
 const dataCanapeToLocalStorage = (canape) => {
     const color = colorChoice(document.getElementById("colors").value);
     const quantity = quantityChoice(Number(document.getElementById("quantity").value));
@@ -28,17 +28,12 @@ const addDataProduct = async () => {
     }
     // Insertion des données dans le DOM
     document.title = dataProductFromApi.name; // Modifie le titre de la page avec le nom du produit actuel
-    // document.querySelector('.item__img').innerHTML = `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`;
-    // document.querySelector('#title').innerHTML = dataProductFromApi.name;
-    // document.querySelector('#price').innerHTML = dataProductFromApi.price;
-    // document.querySelector('#description').innerHTML = dataProductFromApi.description;
     document.querySelector('.item__img').insertAdjacentHTML('beforeend', `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`)
     document.querySelector('#title').insertAdjacentHTML('beforeend', dataProductFromApi.name);
     document.querySelector('#price').insertAdjacentHTML('beforeend', dataProductFromApi.price);
     document.querySelector('#description').insertAdjacentHTML('beforeend', dataProductFromApi.description);
     const listColors = dataProductFromApi.colors.map(color => '<option value="' + color + '">' + color + '</option>');
     document.querySelector('#colors').insertAdjacentHTML('beforeend', listColors);
-
     // Déclenché lors du clic sur le bouton ajouter au panier
     document.getElementById("addToCart").addEventListener("click", () => {
         if (dataCanapeToLocalStorage(dataProductFromApi) != undefined) {
