@@ -2,11 +2,11 @@
 const regexTypeName = (champ) => {
     const reg = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\-\,]{1,}[\s]{0,}[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\-\,]{0,}[\s]{0,}[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\-\,]{0,}[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\s.\-\,]{0,}$/;
     if (reg.test(champ) === true) {
-        return champ
+        return champ;
     } else if (champ.trim() == '') {
         return -2;
     }
-    return -1
+    return -1;
 }
 
 
@@ -18,7 +18,7 @@ const regexTypeAddress = (champ) => {
     } else if (champ.trim() == '') {
         return -2;
     }
-    return -1
+    return -1;
 }
 
 
@@ -41,7 +41,6 @@ const checkField = (targetInput, targetMsg, regexType) => {
         errorMsg = `${targetInput} : le format ne respecte pas la saisie attendue dans ce champ.`;
         targetMsg.innerText = errorMsg;
         return -1
-
     } else if (regexType(targetInput) === -2) {
         errorMsg = `Le champ ne peut être vide`;
         targetMsg.innerText = errorMsg;

@@ -2,7 +2,7 @@
 const displayCart = async () => {
   const cart = getCart();
   if (cart.length === 0 || cart === []) {
-    alert("Votre panier est vide !")
+    alert("Votre panier est vide !");
     document.location.href = "index.html";
   }
   let userOrder = "";
@@ -51,10 +51,10 @@ const editQuantityFromCart = () => {
       const foundItemInCart = cart.find(itemCart => itemCart.id == article.dataset.id && itemCart.colors == article.dataset.color);
       // Valide la condition quantité = nombre entier entre 1 et 100
       if (foundItemInCart != undefined && quantityChoice(articleNewQuantity) != -1) {
-        const item = event.target.closest(`.cart__item__content__settings__quantity`).querySelector('p')
+        const item = event.target.closest(`.cart__item__content__settings__quantity`).querySelector('p');
         foundItemInCart.quantities = Number(productEditOnCart.quantities);
       }
-      event.target.value = foundItemInCart.quantities
+      event.target.value = foundItemInCart.quantities;
       // Sauvegarde le panier dans le local Storage
       saveCart(cart);
       getTotalQuantitiesAndPrice();
@@ -79,13 +79,13 @@ const deleteArticleFromCart = () => {
       if (indexOfItem != -1) {
         cart.splice(indexOfItem, 1);
         const item = event.target.closest('.cart__item');
-        item.remove()
+        item.remove();
       }
       // Sauvegarde le panier dans le local Storage
       saveCart(cart);
       getTotalQuantitiesAndPrice();
       if (cart.length === 0) {
-        alert("Votre panier est vide !")
+        alert("Votre panier est vide !");
         document.location.href = "index.html";
       }
     })
@@ -100,7 +100,7 @@ const getTotalQuantitiesAndPrice = async () => {
   const cart = getCart();
   await cart.forEach(async (canape) => {
     const dataProductFromApi = await getData("http://localhost:3000/api/products/" + canape.id);
-    const totalPerArticle = canape.quantities * dataProductFromApi.price
+    const totalPerArticle = canape.quantities * dataProductFromApi.price;
     totalPrice += totalPerArticle;
     totalQuantities += canape.quantities;
     document.getElementById('totalQuantity').innerText = totalQuantities;
@@ -163,7 +163,7 @@ const checkForm = () => {
       testReg = checkField(field.value, displayMsg, regexTypeMail);
     }
   })
-  return testReg
+  return testReg;
 }
 
 // Créer le contact nécessaire à la requête
@@ -181,7 +181,7 @@ const createContact = () => {
     city: fieldCity.value,
     email: fieldEmail.value
   };
-  return contact
+  return contact;
 };
 
 // Créer le contact nécessaire à la requête
@@ -190,7 +190,7 @@ const createProducts = async () => {
   const cart = await getCart();
   const products = cart.map(canape => canape.id
   );
-  return await products
+  return await products;
 };
 
 
@@ -205,7 +205,7 @@ const getFieldsForm = async () => {
     checkForm();
     // Si formulaire invalide (aucune action)
     if (checkForm() === -1) {
-      return -1
+      return -1;
     }
     const contact = createContact();
     const products = await createProducts();
@@ -213,15 +213,15 @@ const getFieldsForm = async () => {
     // Conditions à respecter pour exécuter la requête 
     if (contact.firstName.length > 0 && contact.lastName.length > 0 && contact.address.length > 0 && contact.city.length > 0 && contact.email.length > 0 && products.length > 0) {
       // Requête API 
-      const data = await postForm("http://localhost:3000/api/products/order", order)
+      const data = await postForm("http://localhost:3000/api/products/order", order);
       if (data === -1) {
         alert("Une erreur est survenue lors de la validation de la commande, veuillez nous excuser pour ce désagrément.");
-        return
+        return;
       }
       // Supprime le localStorage
       localStorage.clear();
       // Redirection sur la page confirmation avec orderId 
-      document.location.href = `confirmation.html?orderId=${data.orderId}`
+      document.location.href = `confirmation.html?orderId=${data.orderId}`;
     }
   })
 }

@@ -1,10 +1,10 @@
-// Fonction charger panier
+// Fonction charger panier depuis localStorage
 const getCart = () => {
     return JSON.parse(localStorage.getItem('cart')) || [];
 }
 
 
-// Fonction sauvegarder panier
+// Fonction sauvegarder panier dans localStorage
 const saveCart = (cart) => {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
@@ -20,10 +20,10 @@ const addCart = (newItem) => {
     if (foundItemInCart != undefined && foundItemInCart.quantities === 100) {
         alert(`Vous ne pouvez pas ajouter plus de 100 produits identiques dans le panier.`);
     } else if (foundItemInCart != undefined && foundItemInCart.quantities + Number(newItem.quantities) > 100) {
-        const quantitiesAvailableToAdd = 100 - foundItemInCart.quantities
+        const quantitiesAvailableToAdd = 100 - foundItemInCart.quantities;
         alert(`Vous ne pouvez pas ajouter plus de 100 produits identiques dans le panier. Vous pouvez encore ajouter ${quantitiesAvailableToAdd} canapés comme celui-ci.`);
     } else if (foundItemInCart != undefined && foundItemInCart.quantities < 100) {
-        foundItemInCart.quantities += Number(newItem.quantities)
+        foundItemInCart.quantities += Number(newItem.quantities);
     } else {
         // Si aucune condition n'est remplie, le canapé n'existe pas, création d'une nouvelle ligne dans le panier 
         cart.push(newItem);
@@ -49,5 +49,5 @@ const colorChoice = (color) => {
         return color;
     }
     alert("Vous devez sélectionner une couleur pour ajouter le produit au panier");
-    return -1
+    return -1;
 }

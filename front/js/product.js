@@ -28,7 +28,7 @@ const addDataProduct = async () => {
     }
     // Insertion des données dans le DOM
     document.title = dataProductFromApi.name; // Modifie le titre de la page avec le nom du produit actuel
-    document.querySelector('.item__img').insertAdjacentHTML('beforeend', `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`)
+    document.querySelector('.item__img').insertAdjacentHTML('beforeend', `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`);
     document.querySelector('#title').insertAdjacentHTML('beforeend', dataProductFromApi.name);
     document.querySelector('#price').insertAdjacentHTML('beforeend', dataProductFromApi.price);
     document.querySelector('#description').insertAdjacentHTML('beforeend', dataProductFromApi.description);

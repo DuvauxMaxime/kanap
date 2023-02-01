@@ -17,4 +17,4 @@ const displayConfirmation = () => {
 }
 
 
-displayConfirmation()
+displayConfirmation();
