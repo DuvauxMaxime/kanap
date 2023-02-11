@@ -34,31 +34,71 @@ const displayCart = async () => {
 }
 
 
+// // Modifier la quantité depuis le panier 
+// const editQuantityFromCart = () => {
+//   const allArticlesFromCart = document.querySelectorAll('.cart__item');
+//   // Parcours l'ensemble des articles de la page panier
+//   allArticlesFromCart.forEach((article) => {
+//     // Déclenché lors de la modification de l'input quantité
+//     article.querySelector('input.itemQuantity').addEventListener("change", (event) => {
+//       // Nouvelle quantité de l'article saisie dans l'input
+//       const articleNewQuantity = Number(event.target.value);
+//       // Création de l'objet modifié sur le panier
+//       const productEditOnCart = { id: article.dataset.id, colors: article.dataset.color, quantities: Number(articleNewQuantity) };
+//       // Récupère le panier
+//       const cart = getCart();
+//       // Recherche parmis le panier si item présente un id et une couleur identiques 
+//       const foundItemInCart = cart.find(itemCart => itemCart.id == article.dataset.id && itemCart.colors == article.dataset.color);
+//       // Valide la condition quantité = nombre entier entre 1 et 100
+//       if (foundItemInCart != undefined && quantityChoice(articleNewQuantity) != -1) {
+//         foundItemInCart.quantities = Number(productEditOnCart.quantities);
+//       }
+//       event.target.value = foundItemInCart.quantities;
+//       // Sauvegarde le panier dans le local Storage
+//       saveCart(cart);
+//       getTotalQuantitiesAndPrice();
+
+//     })
+//   })
+// }
+
+
 // Modifier la quantité depuis le panier 
 const editQuantityFromCart = () => {
   const allArticlesFromCart = document.querySelectorAll('.cart__item');
+  // Récupère le panier
+  const cartAtThisMoment = getCart();
+  const cartLengthAtThisMoment = cartAtThisMoment.length
   // Parcours l'ensemble des articles de la page panier
   allArticlesFromCart.forEach((article) => {
     // Déclenché lors de la modification de l'input quantité
     article.querySelector('input.itemQuantity').addEventListener("change", (event) => {
-      // Nouvelle quantité de l'article saisie dans l'input
-      const articleNewQuantity = Number(event.target.value);
-      // Création de l'objet modifié sur le panier
-      const productEditOnCart = { id: article.dataset.id, colors: article.dataset.color, quantities: Number(articleNewQuantity) };
       // Récupère le panier
       const cart = getCart();
-      // Recherche parmis le panier si item présente un id et une couleur identiques 
-      const foundItemInCart = cart.find(itemCart => itemCart.id == article.dataset.id && itemCart.colors == article.dataset.color);
-      // Valide la condition quantité = nombre entier entre 1 et 100
-      if (foundItemInCart != undefined && quantityChoice(articleNewQuantity) != -1) {
-        const item = event.target.closest(`.cart__item__content__settings__quantity`).querySelector('p');
-        foundItemInCart.quantities = Number(productEditOnCart.quantities);
-      }
-      event.target.value = foundItemInCart.quantities;
-      // Sauvegarde le panier dans le local Storage
-      saveCart(cart);
-      getTotalQuantitiesAndPrice();
+      // if (cart.length != 0 && cart.length === cartLengthAtThisMoment) {
+      // }
+      if (cart.length != cartLengthAtThisMoment) {
+        location.reload();
+      } if (cart.length === 0) {
+        alert("Votre panier est vide !");
+        document.location.href = "index.html";
+      } else {
+        // Nouvelle quantité de l'article saisie dans l'input
+        const articleNewQuantity = Number(event.target.value);
+        // Création de l'objet modifié sur le panier
+        const productEditOnCart = { id: article.dataset.id, colors: article.dataset.color, quantities: Number(articleNewQuantity) };
 
+        // Recherche parmis le panier si item présente un id et une couleur identiques 
+        const foundItemInCart = cart.find(itemCart => itemCart.id == article.dataset.id && itemCart.colors == article.dataset.color);
+        // Valide la condition quantité = nombre entier entre 1 et 100
+        if (foundItemInCart != undefined && quantityChoice(articleNewQuantity) != -1) {
+          foundItemInCart.quantities = Number(productEditOnCart.quantities);
+        }
+        event.target.value = foundItemInCart.quantities;
+        // Sauvegarde le panier dans le local Storage
+        saveCart(cart);
+        getTotalQuantitiesAndPrice();
+      }
     })
   })
 }
