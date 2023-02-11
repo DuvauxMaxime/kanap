@@ -1,7 +1,5 @@
-// Fonction ajout des canapés sur la page index
-
-const addItemCanap = async () => {
-
+// Affichage des canapés sur la page index
+const displayCanap = async () => {
   const canapes = await getData("http://localhost:3000/api/products/");
   if (canapes === -1) {
     document.location.href = "index.html";
@@ -18,7 +16,7 @@ const addItemCanap = async () => {
       </a>`;
   });
   // document.querySelector('#items').innerHTML = listCanapes;
-  document.querySelector('#items').insertAdjacentHTML('afterbegin', listCanapes)
+  document.querySelector('#items').insertAdjacentHTML('afterbegin', listCanapes);
 }
 
-addItemCanap();
+displayCanap();

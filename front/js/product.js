@@ -13,7 +13,7 @@ const dataCanapeToLocalStorage = (canape) => {
 // Ajout des données du canapé par ID sur la page produit 
 const addDataProduct = async () => {
     // Récupère l'Id contenu dans l'URL
-    const pageId = await new URL(window.location.href).searchParams.get("id");
+    const pageId = new URL(window.location.href).searchParams.get("id");
     // Gestion d'erreur si l'Id  est absent dans l'URL 
     if (pageId === null) {
         document.location.href = "index.html";
@@ -28,7 +28,7 @@ const addDataProduct = async () => {
     }
     // Insertion des données dans le DOM
     document.title = dataProductFromApi.name; // Modifie le titre de la page avec le nom du produit actuel
-    document.querySelector('.item__img').insertAdjacentHTML('beforeend', `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`)
+    document.querySelector('.item__img').insertAdjacentHTML('beforeend', `<img src="${dataProductFromApi.imageUrl}" alt="${dataProductFromApi.altTxt}">`);
     document.querySelector('#title').insertAdjacentHTML('beforeend', dataProductFromApi.name);
     document.querySelector('#price').insertAdjacentHTML('beforeend', dataProductFromApi.price);
     document.querySelector('#description').insertAdjacentHTML('beforeend', dataProductFromApi.description);
@@ -38,7 +38,9 @@ const addDataProduct = async () => {
     document.getElementById("addToCart").addEventListener("click", () => {
         if (dataCanapeToLocalStorage(dataProductFromApi) != undefined) {
             addCart(dataCanapeToLocalStorage(dataProductFromApi));
-            document.location.href = "cart.html";
+            if (confirm("Voulez-vous être redirigé vers le panier ?")) {
+                document.location.href = "cart.html";
+            }
         }
     });
 };

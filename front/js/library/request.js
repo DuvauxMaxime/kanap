@@ -9,7 +9,6 @@ const getData = async (url) => {
 
 // Fonction pour requêter l'API 
 const postForm = async (url, body) => {
-
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -21,5 +20,5 @@ const postForm = async (url, body) => {
     if (response.ok === true) {
         return await response.json();
     }
-    return -1
+    return -1;
 }
